@@ -25,11 +25,14 @@ public class ItemController {
         return itemRepository.save(item);
     }
 
-    @PatchMapping("/{id}/status")
-    public Item updateStatus(@PathVariable Long id, @RequestBody StatusUpdate statusUpdate)
+    @PatchMapping("/{id}")
+    public Item updateItem(@PathVariable Long id, @RequestBody ItemUpdate itemUpdate)
     {
         Item item = itemRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
-        item.setStatus(statusUpdate.status());
+        if(itemUpdate.status() != null)
+            item.setStatus(itemUpdate.status());
+        if(itemUpdate.notes() != null)
+            item.setNotes(itemUpdate.notes());
         return itemRepository.save(item);
     }
 
