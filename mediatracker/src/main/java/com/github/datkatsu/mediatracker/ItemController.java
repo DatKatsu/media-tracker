@@ -28,7 +28,7 @@ public class ItemController {
     @PatchMapping("/{id}")
     public Item updateItem(@PathVariable Long id, @RequestBody ItemUpdate itemUpdate)
     {
-        Item item = itemRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
+        Item item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
         if(itemUpdate.status() != null)
             item.setStatus(itemUpdate.status());
         if(itemUpdate.notes() != null)
