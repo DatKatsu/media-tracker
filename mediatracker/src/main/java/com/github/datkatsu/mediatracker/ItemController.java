@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/items")
+@RequestMapping("/api/items")
 public class ItemController {
     private final ItemRepository itemRepository;
 
@@ -40,4 +40,6 @@ public class ItemController {
     public void deleteItem(@PathVariable Long id) {
         itemRepository.deleteById(id);
     }
+
+
 }
