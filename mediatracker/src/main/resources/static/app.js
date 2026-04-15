@@ -4,16 +4,14 @@ async function fetchItems() {
     const typeFilter = document.getElementById('filter-type').value;
     const statusFilter = document.getElementById('filter-status').value;
 
-    const response = await fetch(API_URL);
+    const params = new URLSearchParams();
+    if(typeFilter) params.append("type", typeFilter);
+    if(statusFilter) params.append("status", statusFilter);
+
+    const response = await fetch(`${API_URL}?${params}`);
     const items = await response.json();
 
-    const filtered = items.filter(item => {
-        const matchesType = typeFilter === '' || item.type === typeFilter;
-        const matchesStatus = statusFilter === '' || item.status === statusFilter;
-        return matchesType && matchesStatus;
-    });
-
-    renderItems(filtered);
+    renderItems(items);
 }
 
 function renderItems(items) {
