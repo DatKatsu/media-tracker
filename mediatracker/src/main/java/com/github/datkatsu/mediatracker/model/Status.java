@@ -1,4 +1,4 @@
-package com.github.datkatsu.mediatracker;
+package com.github.datkatsu.mediatracker.model;
 
 public enum Status
 {

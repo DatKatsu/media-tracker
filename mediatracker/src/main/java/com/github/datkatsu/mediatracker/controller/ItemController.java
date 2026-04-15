@@ -1,22 +1,36 @@
-package com.github.datkatsu.mediatracker;
+package com.github.datkatsu.mediatracker.controller;
 
 import org.springframework.web.bind.annotation.*;
+
+import com.github.datkatsu.mediatracker.dto.ItemUpdate;
+import com.github.datkatsu.mediatracker.exception.ItemNotFoundException;
+import com.github.datkatsu.mediatracker.model.Item;
+import com.github.datkatsu.mediatracker.model.MediaType;
+import com.github.datkatsu.mediatracker.model.Status;
+import com.github.datkatsu.mediatracker.repository.ItemRepository;
+import com.github.datkatsu.mediatracker.service.ItemService;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/items")
-public class ItemController {
+public class ItemController 
+{
     private final ItemRepository itemRepository;
+    private final ItemService itemService;
 
-    public ItemController(ItemRepository itemRepository)
+    public ItemController(ItemRepository itemRepository, ItemService itemService)
     {
         this.itemRepository = itemRepository;
+        this.itemService = itemService;
     }
 
     @GetMapping
-    public List<Item> getAllItems()
+    public List<Item> getItems(
+        @RequestParam(required = false) MediaType type,
+        @RequestParam(required = false) Status status) 
     {
-        return itemRepository.findAll();
+        return itemService.getFilteredItems(type, status);
     }
 
     @PostMapping
