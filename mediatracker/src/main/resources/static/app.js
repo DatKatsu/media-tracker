@@ -47,7 +47,7 @@ function renderItems(items) {
 function statusOptions(current) {
     const statuses = ['INTERESTED', 'IN_PROGRESS', 'COMPLETED', 'DROPPED'];
     return statuses.map(s =>
-        `<option value="${s}" ${s === current ? 'selected' : ''}>${formatEnum(s)}</option>`
+        `<option value="${s}"${s === current ? 'selected' : ''}>${formatEnum(s)}</option>`
     ).join('');
 }
 
