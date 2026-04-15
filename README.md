@@ -9,6 +9,14 @@ A personal media backlog tracker for keeping track of all types of media like ga
 Most tracking tools like MyAnimeList only cover one type of media. I wanted a single place to track everything I'm interested in, currently watching, or have finished without the bloat of social features I don't use.
 
 ---
+
+## Screenshot
+ 
+![Media Tracker screenshot](mediatracker-screenshot.png)
+ 
+---
+
+---
 ## Features
 
 - Track any type of media: games, anime, manga, light novels, web novels, series, movies
