@@ -35,7 +35,7 @@ function renderItems(items) {
                     ${statusOptions(item.status)}
                 </select>
             </td>
-            <td>${item.notes || ''}</td>
+            <td contenteditable="true" onblur="updateNotes(${item.id}, this.innerText)">${item.notes || ''}</td>
             <td>
                 <button class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
             </td>
@@ -84,6 +84,15 @@ async function updateStatus(id, status) {
         body: JSON.stringify({ status })
     });
 
+    fetchItems();
+}
+
+async function updateNotes(id, notes) {
+    await fetch(`${API_URL}/${id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ notes })
+    });
     fetchItems();
 }
 

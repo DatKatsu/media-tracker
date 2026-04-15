@@ -45,6 +45,7 @@
             margin-bottom: 16px;
         }
         table {
+            table-layout: fixed;
             width: 100%;
             border-collapse: collapse;
             background: white;
@@ -57,6 +58,27 @@
             border-bottom: 1px solid #eee;
         }
         th { background: #333; color: white; }
+
+        td:nth-child(1) {
+            /* word-wrap for compatibility  */
+            word-wrap: break-word; 
+            overflow-wrap: break-word;
+            word-break: break-word; 
+        }
+
+        td:nth-child(4) {
+            /* word-wrap for compatibility  */
+            word-wrap: break-word; 
+            overflow-wrap: break-word;
+            word-break: break-word; 
+        }
+
+        th:nth-child(1) { width: 20%; }
+        th:nth-child(2) { width: 10%; }
+        th:nth-child(3) { width: 15%; }    
+        th:nth-child(4) { width: 45%; }
+        th:nth-child(5) { width: 10%; }
+
         tr:last-child td { border-bottom: none; }
         tr:hover td { background: #f9f9f9; }
         .delete-btn {
