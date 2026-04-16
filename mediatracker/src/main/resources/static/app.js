@@ -72,7 +72,7 @@ async function addItem(event) {
     });
 
     form.reset();
-    fetchItems();
+    await fetchItems();
 }
 
 async function updateStatus(id, status) {
@@ -82,7 +82,7 @@ async function updateStatus(id, status) {
         body: JSON.stringify({ status })
     });
 
-    fetchItems();
+    await fetchItems();
 }
 
 async function updateNotes(id, notes) {
@@ -91,7 +91,7 @@ async function updateNotes(id, notes) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ notes })
     });
-    fetchItems();
+    await fetchItems();
 }
 
 async function deleteItem(id) {
@@ -99,11 +99,31 @@ async function deleteItem(id) {
         method: 'DELETE'
     });
 
-    fetchItems();
+    await fetchItems();
 }
+
+
+async function clearFilter()
+{
+    resetSelectionDropDown();
+    await fetchItems();
+}
+
+function resetSelectionDropDown()
+{
+    const typeFilter = document.getElementById('filter-type');
+    const statusFilter = document.getElementById('filter-status');
+    typeFilter.value = "";
+    statusFilter.value = "";
+}
+
 
 document.getElementById('add-form').addEventListener('submit', addItem);
 document.getElementById('filter-type').addEventListener('change', fetchItems);
 document.getElementById('filter-status').addEventListener('change', fetchItems);
+
+
+
+document.getElementById('filter-clear').addEventListener('click', clearFilter);
 
 fetchItems();

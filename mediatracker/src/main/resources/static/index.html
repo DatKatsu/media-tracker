@@ -87,6 +87,13 @@
             font-size: 12px;
         }
         .delete-btn:hover { background: #e74c3c; }
+
+        .clear-filter-btn {
+            background: #c0392b;
+            padding: 4px 10px;
+            font-size: 12px;
+        }
+        .clear-filter-btn:hover { background: #e74c3c; }
     </style>
 </head>
 <body>
@@ -134,6 +141,7 @@
             <option value="COMPLETED">Completed</option>
             <option value="DROPPED">Dropped</option>
         </select>
+        <button class="clear-filter-btn" id="filter-clear">&times;</button>
     </div>
 
     <table>
@@ -151,8 +159,5 @@
     </table>
 
     <script src = "app.js"></script>
-
-    </script>
-
 </body>
 </html>
