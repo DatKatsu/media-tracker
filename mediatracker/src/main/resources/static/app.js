@@ -35,7 +35,7 @@ function renderItems(items) {
             </td>
             <td contenteditable="true" onblur="updateNotes(${item.id}, this.innerText)">${item.notes || ''}</td>
             <td>
-                <button class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
+                <button aria-label="Delete ${item.title}" class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
             </td>
         `;
         tbody.appendChild(row);
@@ -121,8 +121,6 @@ function resetSelectionDropDown()
 document.getElementById('add-form').addEventListener('submit', addItem);
 document.getElementById('filter-type').addEventListener('change', fetchItems);
 document.getElementById('filter-status').addEventListener('change', fetchItems);
-
-
 
 document.getElementById('filter-clear').addEventListener('click', clearFilter);
 
