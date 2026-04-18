@@ -1,0 +1,2 @@
+# application-local.properties.template (committed — copy to application-local.properties and fill in)
+mal.api.client-id=REPLACE_ME
