@@ -41,7 +41,7 @@ public class MalApiService {
                         .header("X-MAL-CLIENT-ID", clientId)
                         .accept(APPLICATION_JSON)
                         .retrieve()
-                        .body(new ParameterizedTypeReference<MalSearchResponseWrapper<MalAnimeNodeWrapper>>(){});
+                        .body(new ParameterizedTypeReference<>() {});
         if(response == null)
             return List.of();
         return response.data().stream().map(MalAnimeNodeWrapper::node).toList();

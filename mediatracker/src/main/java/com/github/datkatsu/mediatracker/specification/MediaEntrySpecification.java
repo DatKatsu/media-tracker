@@ -12,7 +12,7 @@ import com.github.datkatsu.mediatracker.model.Status;
 
 import jakarta.persistence.criteria.Predicate;
 //Class to specify filter rules
-public class ItemSpecification
+public class MediaEntrySpecification
 {
     public static Specification<Item> filterBy(MediaType type, Status status)
     {
