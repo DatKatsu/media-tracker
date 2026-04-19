@@ -2,7 +2,7 @@ package com.github.datkatsu.mediatracker.controller;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.github.datkatsu.mediatracker.dto.ItemUpdate;
+import com.github.datkatsu.mediatracker.dto.ItemUpdateDto;
 import com.github.datkatsu.mediatracker.exception.ItemNotFoundException;
 import com.github.datkatsu.mediatracker.model.Item;
 import com.github.datkatsu.mediatracker.model.MediaType;
@@ -40,14 +40,9 @@ public class ItemController
     }
 
     @PatchMapping("/{id}")
-    public Item updateItem(@PathVariable Long id, @RequestBody ItemUpdate itemUpdate)
+    public Item updateItem(@PathVariable Long id, @RequestBody ItemUpdateDto itemUpdateDto)
     {
-        Item item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
-        if(itemUpdate.status() != null)
-            item.setStatus(itemUpdate.status());
-        if(itemUpdate.notes() != null)
-            item.setNotes(itemUpdate.notes());
-        return itemRepository.save(item);
+        return itemService.updateItem(id, itemUpdateDto);
     }
 
     @DeleteMapping("/{id}")

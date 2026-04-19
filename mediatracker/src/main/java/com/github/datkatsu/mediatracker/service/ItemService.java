@@ -2,6 +2,8 @@ package com.github.datkatsu.mediatracker.service;
 
 import java.util.List;
 
+import com.github.datkatsu.mediatracker.dto.ItemUpdateDto;
+import com.github.datkatsu.mediatracker.exception.ItemNotFoundException;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,16 @@ public class ItemService
     public ItemService(ItemRepository itemRepository)
     {
         this.itemRepository = itemRepository;
+    }
+
+    public Item updateItem(Long id, ItemUpdateDto itemUpdateDto)
+    {
+        Item item = itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+        if(itemUpdateDto.status() != null)
+            item.setStatus(itemUpdateDto.status());
+        if(itemUpdateDto.notes() != null)
+            item.setNotes(itemUpdateDto.notes());
+        return itemRepository.save(item);
     }
 
     public List<Item> getFilteredItems(MediaType type, Status status)
