@@ -3,8 +3,8 @@ package com.github.datkatsu.mediatracker.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "items")
-public class Item 
+@Table(name = "media_entries")
+public class MediaEntry
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class Item
 
     private String notes;
 
-    public Item() {   }
+    public MediaEntry() {   }
 
     public Long getId() { return id; }
     public String getTitle() { return title; }

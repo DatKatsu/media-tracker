@@ -1,9 +1,9 @@
 package com.github.datkatsu.mediatracker.controller;
 
+import com.github.datkatsu.mediatracker.model.MediaEntry;
 import org.springframework.web.bind.annotation.*;
 
 import com.github.datkatsu.mediatracker.dto.MediaEntryUpdateDto;
-import com.github.datkatsu.mediatracker.model.Item;
 import com.github.datkatsu.mediatracker.model.MediaType;
 import com.github.datkatsu.mediatracker.model.Status;
 import com.github.datkatsu.mediatracker.repository.MediaEntryRepository;
@@ -25,7 +25,7 @@ public class MediaEntryController
     }
 
     @GetMapping
-    public List<Item> getEntries(
+    public List<MediaEntry> getEntries(
         @RequestParam(required = false) MediaType type,
         @RequestParam(required = false) Status status) 
     {
@@ -33,13 +33,13 @@ public class MediaEntryController
     }
 
     @PostMapping
-    public Item addEntry(@RequestBody Item item)
+    public MediaEntry addEntry(@RequestBody MediaEntry mediaEntry)
     {
-        return mediaEntryRepository.save(item);
+        return mediaEntryRepository.save(mediaEntry);
     }
 
     @PatchMapping("/{id}")
-    public Item updateEntry(@PathVariable Long id, @RequestBody MediaEntryUpdateDto mediaEntryUpdateDto)
+    public MediaEntry updateEntry(@PathVariable Long id, @RequestBody MediaEntryUpdateDto mediaEntryUpdateDto)
     {
         return mediaEntryService.updateEntry(id, mediaEntryUpdateDto);
     }

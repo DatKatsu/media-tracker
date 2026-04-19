@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.github.datkatsu.mediatracker.dto.MediaEntryUpdateDto;
 import com.github.datkatsu.mediatracker.exception.ItemNotFoundException;
+import com.github.datkatsu.mediatracker.model.MediaEntry;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.github.datkatsu.mediatracker.repository.MediaEntryRepository;
 import com.github.datkatsu.mediatracker.specification.MediaEntrySpecification;
-import com.github.datkatsu.mediatracker.model.Item;
 import com.github.datkatsu.mediatracker.model.Status;
 import com.github.datkatsu.mediatracker.model.MediaType;
 
@@ -23,19 +23,19 @@ public class MediaEntryService
         this.mediaEntryRepository = mediaEntryRepository;
     }
 
-    public Item updateEntry(Long id, MediaEntryUpdateDto mediaEntryUpdateDto)
+    public MediaEntry updateEntry(Long id, MediaEntryUpdateDto mediaEntryUpdateDto)
     {
-        Item item = mediaEntryRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+        MediaEntry mediaEntry = mediaEntryRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
         if(mediaEntryUpdateDto.status() != null)
-            item.setStatus(mediaEntryUpdateDto.status());
+            mediaEntry.setStatus(mediaEntryUpdateDto.status());
         if(mediaEntryUpdateDto.notes() != null)
-            item.setNotes(mediaEntryUpdateDto.notes());
-        return mediaEntryRepository.save(item);
+            mediaEntry.setNotes(mediaEntryUpdateDto.notes());
+        return mediaEntryRepository.save(mediaEntry);
     }
 
-    public List<Item> getFilteredEntries(MediaType type, Status status)
+    public List<MediaEntry> getFilteredEntries(MediaType type, Status status)
     {
-        Specification<Item> spec = MediaEntrySpecification.filterBy(type, status);
+        Specification<MediaEntry> spec = MediaEntrySpecification.filterBy(type, status);
         return mediaEntryRepository.findAll(spec);
 
     }

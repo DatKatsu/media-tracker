@@ -24,9 +24,9 @@ const name = "hello"; // use for variables that don't change (default choice)
 just the variable can't point to a different object:
 
 ```javascript
-const item = { title: "Berserk" };
-item.title = "Elden Ring"; // fine — modifying contents
-item = { title: "Elden Ring" }; // error — reassigning variable
+const mediaEntry = { title: "Berserk" };
+mediaEntry.title = "Elden Ring"; // fine — modifying contents
+mediaEntry = { title: "Elden Ring" }; // error — reassigning variable
 ```
 
 ---
@@ -73,16 +73,16 @@ Using `==` causes subtle hard-to-find bugs.
 Key-value pairs, no class definition needed:
 
 ```javascript
-const item = {
+const mediaEntry = {
     title: "Berserk",
     type: "MANGA",
     status: "INTERESTED"
 };
 
-item.title;         // "Berserk" — dot notation
-item["title"];      // "Berserk" — bracket notation (useful when key is a variable)
-item.notes = "Great"; // add new field
-delete item.notes;    // remove field
+mediaEntry.title;         // "Berserk" — dot notation
+mediaEntry["title"];      // "Berserk" — bracket notation (useful when key is a variable)
+mediaEntry.notes = "Great"; // add new field
+delete mediaEntry.notes;    // remove field
 ```
 
 ---
@@ -111,20 +111,20 @@ const items = [
 ];
 
 // forEach — loop through every element, no return value
-items.forEach(item => {
-    console.log(item.title);
+items.forEach(mediaEntry => {
+    console.log(mediaEntry.title);
 });
 
 // map — transform every element, returns new array
-const titles = items.map(item => item.title);
+const titles = items.map(mediaEntry => mediaEntry.title);
 // ["Berserk", "Elden Ring", "Vinland Saga"]
 
 // filter — keep only elements matching condition, returns new array
-const games = items.filter(item => item.type === "GAME");
+const games = items.filter(mediaEntry => mediaEntry.type === "GAME");
 // [{ title: "Elden Ring", type: "GAME" }]
 
 // find — returns first element matching condition
-const berserk = items.find(item => item.title === "Berserk");
+const berserk = items.find(mediaEntry => mediaEntry.title === "Berserk");
 // { title: "Berserk", type: "MANGA" }
 ```
 
@@ -193,8 +193,8 @@ class Item {
     }
 }
 
-const item = new Item("Berserk", "MANGA", "INTERESTED");
-item.describe(); // "Berserk - MANGA"
+const mediaEntry = new Item("Berserk", "MANGA", "INTERESTED");
+mediaEntry.describe(); // "Berserk - MANGA"
 ```
 
 Similar to Java but less common in plain JavaScript — modern code often uses plain objects
