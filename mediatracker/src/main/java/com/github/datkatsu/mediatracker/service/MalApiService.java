@@ -1,15 +1,13 @@
 package com.github.datkatsu.mediatracker.service;
 
-import com.github.datkatsu.mediatracker.dto.MalAnimeDto;
-import com.github.datkatsu.mediatracker.dto.MalAnimeNodeWrapper;
-import com.github.datkatsu.mediatracker.dto.MalMangaDto;
-import com.github.datkatsu.mediatracker.dto.MalSearchResponseWrapper;
+import com.github.datkatsu.mediatracker.dto.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -35,16 +33,34 @@ public class MalApiService {
 
     public List<MalAnimeDto> fetchAnime(String query)
     {
-        MalSearchResponseWrapper<MalAnimeNodeWrapper> response =
+        MalAnimeSearchResponseWrapper response =
                 client.get()
                         .uri(apiBaseUrl + "/anime?q=" + query + "&limit=5")
                         .header("X-MAL-CLIENT-ID", clientId)
                         .accept(APPLICATION_JSON)
                         .retrieve()
-                        .body(new ParameterizedTypeReference<>() {});
+                        .body(MalAnimeSearchResponseWrapper.class);
         if(response == null)
             return List.of();
-        return response.data().stream().map(MalAnimeNodeWrapper::node).toList();
+        return response.data().stream()
+                .map(MalAnimeNodeWrapper::node)
+                .filter(Objects::nonNull).toList();
+    }
+
+    public List<MalMangaDto> fetchManga(String query)
+    {
+        MalMangaSearchResponseWrapper response =
+                client.get()
+                        .uri(apiBaseUrl + "/manga?q=" + query + "&limit=5")
+                        .header("X-MAL-CLIENT-ID", clientId)
+                        .accept(APPLICATION_JSON)
+                        .retrieve()
+                        .body(MalMangaSearchResponseWrapper.class);
+        if(response == null)
+            return List.of();
+        return response.data().stream()
+                .map(MalMangaNodeWrapper::node)
+                .filter(Objects::nonNull).toList();
     }
 
 }
