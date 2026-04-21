@@ -26,7 +26,7 @@ public class MediaSearchService
         this.placeholderImageUrl = placeholderImageUrl;
     }
 
-    public List<MediaSearchResultDto> fetchMedia(String query)
+    public List<MediaSearchResultDto> search(String query)
     {
         List<MediaSearchResultDto> resultDtoList = new ArrayList<>();
         resultDtoList.addAll(malApiService.fetchAnime(query).stream().map(this::toSearchResult).toList());

@@ -16,8 +16,8 @@ class MediaSearchServiceTest {
     private MediaSearchService mediaSearchService;
 
     @Test
-    void fetchMedia() {
-        List<MediaSearchResultDto> results = mediaSearchService.fetchMedia("naruto");
+    void search() {
+        List<MediaSearchResultDto> results = mediaSearchService.search("naruto");
         System.out.println(results);
     }
 }

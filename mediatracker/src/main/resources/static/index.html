@@ -81,12 +81,12 @@
 
         tr:last-child td { border-bottom: none; }
         tr:hover td { background: #f9f9f9; }
-        .delete-btn {
+        .entry-delete-btn {
             background: #c0392b;
             padding: 4px 10px;
             font-size: 12px;
         }
-        .delete-btn:hover { background: #e74c3c; }
+        .entry-delete-btn:hover { background: #e74c3c; }
 
         .clear-filter-btn {
             background: #c0392b;
@@ -102,6 +102,25 @@
             overflow: hidden;
             clip: rect(0, 0, 0, 0);
         }
+
+        .search-container {
+            position: relative;
+
+        }
+
+        .search-results {
+            background: white;
+            position: absolute;
+            top: 100%;
+            width: 100%;
+            display: none;
+
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
@@ -109,15 +128,36 @@
     <h1>Media Tracker</h1>
 
     <form id="add-form" autocomplete="off">
+        <div class="search-container">
         <label for="title" class="sr-only">Title</label>
-        <input name="title" type="text" id="title" placeholder="Title" required />
+        <input name="title" type="text" id="title" placeholder="Title" required/>
+        <label for="type" class="sr-only">Type</label>
+        <select name="type" id="type">
+            <option value="GAME">Game</option>
+            <option value="ANIME">Anime</option>
+            <option value="MANGA">Manga</option>
+            <option value="LIGHT_NOVEL">Light Novel</option>
+            <option value="WEB_NOVEL">Web Novel</option>
+            <option value="SERIES">Series</option>
+            <option value="MOVIE">Movie</option>
+            <option value="OTHER">Other</option>
+        </select>
+        <label for="status" class="sr-only">Status</label>
+        <select name="status" id="status">
+            <option value="INTERESTED">Interested</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="DROPPED">Dropped</option>
+        </select>
+            <ul class="search-results" id="search-results">
+                <!-- content injected by JS-->
+            </ul>
+
         <label for="notes" class="sr-only">Notes</label>
-        <input name="notes" type="text" id="notes" placeholder="Notes (optional)" />
+        <input name="notes" type="text" id="notes" placeholder="Notes (optional)"/>
         <button type="submit">Add</button>
+        </div>
     </form>
-    <div class="suggestion-dropdown" id="suggestion-dropdown" role="listbox">
-        <!-- content injected by JS-->
-    </div>
 
     <div class="filters">
         <label for="filter-type" class="sr-only">Filter Type</label>

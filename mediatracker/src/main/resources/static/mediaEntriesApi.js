@@ -1,4 +1,4 @@
-const API_URL = '/api/items';
+const API_URL = '/api/media';
 
 export async function fetchItems() {
     const typeFilter = document.getElementById('filter-type').value;
@@ -29,17 +29,52 @@ function renderItems(items) {
             <td>${item.title}</td>
             <td>${formatEnum(item.type)}</td>
             <td>
-                <select onchange="updateStatus(${item.id}, this.value)">
+                <select class="entry-status" data-id="${item.id}">
                     ${statusOptions(item.status)}
                 </select>
             </td>
-            <td contenteditable="true" onblur="updateNotes(${item.id}, this.innerText)">${item.notes || ''}</td>
+            <td contenteditable="true" class="entry-notes" data-id="${item.id}">${item.notes || ''}</td>
             <td>
-                <button aria-label="Delete ${item.title}" class="delete-btn" onclick="deleteItem(${item.id})">Delete</button>
+                <button aria-label="Delete ${item.title}" class="entry-delete-btn" data-id="${item.id}">Delete</button>
             </td>
         `;
         tbody.appendChild(row);
+
+        tbody.removeEventListener('click', onDeleteClick)
+        tbody.removeEventListener('change', onStatusChange);
+        tbody.removeEventListener('focusout', onUpdateNotes)
+
+        tbody.addEventListener('click', onDeleteClick);
+        tbody.addEventListener('change', onStatusChange);
+        tbody.addEventListener('focusout', onUpdateNotes)
     });
+}
+
+async function onStatusChange(e)
+{
+    const entryStatus = e.target.closest('.entry-status');
+    if(!entryStatus)
+        return;
+    const id = entryStatus.dataset.id;
+    await updateStatus(id, entryStatus.value);
+}
+
+async function onDeleteClick(e)
+{
+    const deleteButton = e.target.closest('.entry-delete-btn');
+    if(!deleteButton)
+        return;
+    const id = deleteButton.dataset.id;
+    await deleteItem(id);
+}
+
+async function onUpdateNotes(e)
+{
+    const entryNotes = e.target.closest('.entry-notes');
+    if(!entryNotes)
+        return;
+    const id = entryNotes.dataset.id;
+    await updateNotes(id, entryNotes.innerText);
 }
 
 function statusOptions(current) {
@@ -60,8 +95,8 @@ export async function addItem(event) {
 
     const item = {
         title: form.title.value,
-        type: form.type.value,
-        status: form.status.value,
+        type: form.type.value || null,
+        status: form.status.value || null,
         notes: form.notes.value || null
     };
 
@@ -94,7 +129,7 @@ async function updateNotes(id, notes) {
     await fetchItems();
 }
 
-export async function deleteItem(id) {
+async function deleteItem(id) {
     await fetch(`${API_URL}/${id}`, {
         method: 'DELETE'
     });

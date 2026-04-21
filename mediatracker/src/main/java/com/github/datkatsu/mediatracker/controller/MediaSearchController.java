@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/media")
+@RequestMapping("/api/search")
 public class MediaSearchController {
 
     private final MediaSearchService searchService;
@@ -23,7 +23,7 @@ public class MediaSearchController {
     @GetMapping
     public List<MediaSearchResultDto> getSearchResults(@RequestParam String query)
     {
-        return searchService.fetchMedia(query);
+        return searchService.search(query);
     }
 
 }

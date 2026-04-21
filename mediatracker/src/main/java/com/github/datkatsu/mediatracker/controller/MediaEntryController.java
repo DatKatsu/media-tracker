@@ -12,7 +12,7 @@ import com.github.datkatsu.mediatracker.service.MediaEntryService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/items")
+@RequestMapping("/api/media")
 public class MediaEntryController
 {
     private final MediaEntryRepository mediaEntryRepository;
