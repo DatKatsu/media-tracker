@@ -1,12 +1,23 @@
 const API_URL = '/api/items';
+const API_SEARCH_URL = '/api/media';
+
+async function fetchMedia() {
+    const params = new URLSearchParams();
+    params.append('query', 'One');
+
+    const response = await fetch(`${API_SEARCH_URL}?${params}`);
+    const media = await response.json();
+
+    console.log(media);
+}
 
 async function fetchItems() {
     const typeFilter = document.getElementById('filter-type').value;
     const statusFilter = document.getElementById('filter-status').value;
 
     const params = new URLSearchParams();
-    if(typeFilter) params.append("type", typeFilter);
-    if(statusFilter) params.append("status", statusFilter);
+    if(typeFilter) params.append('type', typeFilter);
+    if(statusFilter) params.append('status', statusFilter);
 
     const response = await fetch(`${API_URL}?${params}`);
     const items = await response.json();

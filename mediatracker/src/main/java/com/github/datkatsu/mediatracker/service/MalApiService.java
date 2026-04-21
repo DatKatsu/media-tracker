@@ -2,7 +2,6 @@ package com.github.datkatsu.mediatracker.service;
 
 import com.github.datkatsu.mediatracker.dto.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -35,14 +34,14 @@ public class MalApiService {
     {
         MalAnimeSearchResponseWrapper response =
                 client.get()
-                        .uri(apiBaseUrl + "/anime?q=" + query + "&limit=5")
+                        .uri(apiBaseUrl + "/anime?q=" + query + "&limit=10")
                         .header("X-MAL-CLIENT-ID", clientId)
                         .accept(APPLICATION_JSON)
                         .retrieve()
                         .body(MalAnimeSearchResponseWrapper.class);
         if(response == null)
             return List.of();
-        return response.data().stream()
+        return response.data().stream().limit(5)
                 .map(MalAnimeNodeWrapper::node)
                 .filter(Objects::nonNull).toList();
     }
@@ -51,14 +50,14 @@ public class MalApiService {
     {
         MalMangaSearchResponseWrapper response =
                 client.get()
-                        .uri(apiBaseUrl + "/manga?q=" + query + "&limit=5")
+                        .uri(apiBaseUrl + "/manga?q=" + query + "&limit=10")
                         .header("X-MAL-CLIENT-ID", clientId)
                         .accept(APPLICATION_JSON)
                         .retrieve()
                         .body(MalMangaSearchResponseWrapper.class);
         if(response == null)
             return List.of();
-        return response.data().stream()
+        return response.data().stream().limit(5)
                 .map(MalMangaNodeWrapper::node)
                 .filter(Objects::nonNull).toList();
     }
