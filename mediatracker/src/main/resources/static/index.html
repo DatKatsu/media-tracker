@@ -111,28 +111,13 @@
     <form id="add-form" autocomplete="off">
         <label for="title" class="sr-only">Title</label>
         <input name="title" type="text" id="title" placeholder="Title" required />
-        <label for="type" class="sr-only">Type</label>
-            <select name="type" id="type">
-                <option value="GAME">Game</option>
-                <option value="ANIME">Anime</option>
-                <option value="MANGA">Manga</option>
-                <option value="LIGHT_NOVEL">Light Novel</option>
-                <option value="WEB_NOVEL">Web Novel</option>
-                <option value="SERIES">Series</option>
-                <option value="MOVIE">Movie</option>
-                <option value="OTHER">Other</option>
-            </select>
-        <label for="status" class="sr-only">Status</label>
-            <select name="status" id="status">
-                <option value="INTERESTED">Interested</option>
-                <option value="IN_PROGRESS">In Progress</option>
-                <option value="COMPLETED">Completed</option>
-                <option value="DROPPED">Dropped</option>
-            </select>
         <label for="notes" class="sr-only">Notes</label>
         <input name="notes" type="text" id="notes" placeholder="Notes (optional)" />
         <button type="submit">Add</button>
     </form>
+    <div class="suggestion-dropdown" id="suggestion-dropdown" role="listbox">
+        <!-- content injected by JS-->
+    </div>
 
     <div class="filters">
         <label for="filter-type" class="sr-only">Filter Type</label>
@@ -169,9 +154,10 @@
             </tr>
         </thead>
         <tbody id="items-body">
+            <!-- content injected by JS-->
         </tbody>
     </table>
 
-    <script src = "app.js"></script>
+    <script type="module" src="/app.js"></script>
 </body>
 </html>
