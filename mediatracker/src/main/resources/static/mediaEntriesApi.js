@@ -96,8 +96,8 @@ export async function addItem(event) {
 
     const item = {
         title: form.title.value,
-        type: form.type.value || null,
-        status: form.status.value || null,
+        type: form.type.value,
+        status: form.status.value,
         notes: form.notes.value || null
     };
 

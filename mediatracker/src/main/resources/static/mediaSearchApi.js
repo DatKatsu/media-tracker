@@ -22,13 +22,14 @@ export async function search() {
 
     const response = await fetch(`${API_SEARCH_URL}?${params}`);
     const results = await response.json();
+
     renderResults(results, query)
     console.log(results); 
 }
 
 function renderResults(results, query) {
 
-    search_results.style.display = "grid";
+    search_results.style.display = "flex";
     
     let listHTML = ``; 
     results.forEach(result => {listHTML += listEntry(result)});
@@ -36,5 +37,13 @@ function renderResults(results, query) {
 }
 
 function listEntry(entry) {
-    return `<li>${entry.title}</li>`;
+    return `<li>
+    <div class="search-entry">
+        <img class="search-entry-image" src="${entry.imageUrl}" alt="${entry.title}">
+        <div class="search-entry-info">
+            <span class="search-entry-title">${entry.title}</span>
+            <span class="searh-entry-meta">Placeholder</span>
+        </div>
+    </div>
+    </li>`;
 }

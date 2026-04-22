@@ -12,7 +12,9 @@
             padding: 0 20px;
             background: #f5f5f5;
         }
-        h1 { margin-bottom: 24px; }
+        h1 {
+            margin-bottom: 24px;
+        }
         form {
             background: white;
             padding: 20px;
@@ -28,7 +30,10 @@
             border-radius: 4px;
             font-size: 14px;
         }
-        input[name="title-input"] { flex: 1; min-width: 200px; }
+        input[id="title-input"] {
+            box-sizing: border-box;
+            width: 100%
+        }
         button {
             padding: 8px 16px;
             background: #333;
@@ -38,7 +43,9 @@
             cursor: pointer;
             font-size: 14px;
         }
-        button:hover { background: #555; }
+        button:hover {
+            background: #555;
+        }
         .filters {
             display: flex;
             gap: 10px;
@@ -57,15 +64,15 @@
             padding: 12px 16px;
             border-bottom: 1px solid #eee;
         }
-        th { background: #333; color: white; }
-
+        th {
+            background: #333; color: white;
+        }
         td:nth-child(1) {
             /* word-wrap for compatibility  */
             word-wrap: break-word; 
             overflow-wrap: break-word;
             word-break: break-word; 
         }
-
         td:nth-child(4) {
             /* word-wrap for compatibility  */
             word-wrap: break-word; 
@@ -105,34 +112,76 @@
 
         .search-container {
             position: relative;
-
+            flex: 1;
+            min-width: 200px;
         }
 
         .search-results {
-            background: white;
+            left:-20px;
             position: absolute;
             top: 100%;
             width: 100%;
+
             display: none;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            background: white;
 
             list-style-type: none;
 
-            padding: 20px;
             border-radius: 8px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
+
+            gap: 4px;
+            padding: 12px;
+
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ccc;
+            z-index: 10;
+        }
+
+        .search-entry {
+            display: flex;
             gap: 10px;
+            height: 80px
+        }
+
+        .search-entry-image {
+            width: 70px;
+            max-width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .search-entry-info {
+            display:flex;
+            flex-direction: column;
+        }
+
+        .search-entry-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .search-entry-meta {
+            font-size: 12px;
+            color: #888;
         }
     </style>
 </head>
+
 <body>
-
     <h1>Media Tracker</h1>
-
     <form id="add-form" autocomplete="off">
         <div class="search-container">
-        <label for="title-input" class="sr-only">Title</label>
-        <input name="title-input" type="text" id="title-input" placeholder="Title" required/>
+            <label for="title-input" class="sr-only">Title</label>
+            <input name="title" type="text" id="title-input" placeholder="Title" required/>
+            <ul class="search-results" id="search-results">
+                <!-- content injected by JS-->
+            </ul>
+        </div>
         <label for="type" class="sr-only">Type</label>
         <select name="type" id="type">
             <option value="GAME">Game</option>
@@ -151,14 +200,11 @@
             <option value="COMPLETED">Completed</option>
             <option value="DROPPED">Dropped</option>
         </select>
-            <ul class="search-results" id="search-results">
-                <!-- content injected by JS-->
-            </ul>
 
         <label for="notes" class="sr-only">Notes</label>
         <input name="notes" type="text" id="notes" placeholder="Notes (optional)"/>
         <button type="submit">Add</button>
-        </div>
+
     </form>
 
     <div class="filters">
