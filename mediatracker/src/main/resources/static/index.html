@@ -28,7 +28,7 @@
             border-radius: 4px;
             font-size: 14px;
         }
-        input[name="title"] { flex: 1; min-width: 200px; }
+        input[name="title-input"] { flex: 1; min-width: 200px; }
         button {
             padding: 8px 16px;
             background: #333;
@@ -115,6 +115,8 @@
             width: 100%;
             display: none;
 
+            list-style-type: none;
+
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 24px;
@@ -129,8 +131,8 @@
 
     <form id="add-form" autocomplete="off">
         <div class="search-container">
-        <label for="title" class="sr-only">Title</label>
-        <input name="title" type="text" id="title" placeholder="Title" required/>
+        <label for="title-input" class="sr-only">Title</label>
+        <input name="title-input" type="text" id="title-input" placeholder="Title" required/>
         <label for="type" class="sr-only">Type</label>
         <select name="type" id="type">
             <option value="GAME">Game</option>

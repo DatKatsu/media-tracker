@@ -68,9 +68,10 @@ async function onDeleteClick(e)
     await deleteItem(id);
 }
 
-async function onUpdateNotes(e)
+async function onUpdateNotes(event)
 {
-    const entryNotes = e.target.closest('.entry-notes');
+    event.preventDefault();
+    const entryNotes = event.target.closest('.entry-notes');
     if(!entryNotes)
         return;
     const id = entryNotes.dataset.id;

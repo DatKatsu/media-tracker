@@ -1,37 +1,40 @@
 const API_SEARCH_URL = '/api/search';
-const DEBOUNCE_MS = 300;
+
 const MIN_CHARS = 3;
 const MAX_RESULTS = 10;
 
-let debounceTimer = null;
+
 let currentResults = [];
 
-const input = document.getElementById('title');
+const input = document.getElementById('title-input');
 const search_results = document.getElementById('search-results');
 const search_container = document.getElementById('search-container');
 
 export async function search() {
+
+    const query = input.value;
+    if(query.length < MIN_CHARS)
+        return;
+
     const params = new URLSearchParams();
-    const testQuery = 'One';
-    params.append('query', testQuery);
+    //const testQuery = 'One';
+    params.append('query', query);
 
     const response = await fetch(`${API_SEARCH_URL}?${params}`);
     const results = await response.json();
-    renderResults(results, testQuery)
-    console.log(results);
+    renderResults(results, query)
+    console.log(results); 
 }
 
 function renderResults(results, query) {
 
     search_results.style.display = "grid";
-    search_results.innerHTML = `<li>No results</li><li>No results</li><li>No results</li><li>No results</li><li>No results</li>`;
-
-    //results.forEach(buildSuggestionList(results));
-    //search_results.innerHTML = `<>`
-
-
+    
+    let listHTML = ``; 
+    results.forEach(result => {listHTML += listEntry(result)});
+    search_results.innerHTML = listHTML;
 }
 
-function buildSuggestionList(results) {
-
+function listEntry(entry) {
+    return `<li>${entry.title}</li>`;
 }
