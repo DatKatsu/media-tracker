@@ -5,17 +5,19 @@ const MAX_RESULTS = 10;
 
 
 let currentSearchResults = [];
+let lastQuery = "";
 
 const input = document.getElementById('title-input');
 const search_results = document.getElementById('search-results');
-const search_container = document.getElementById('search-container');
 const add_form = document.getElementById('add-form');
 
 export async function search() {
 
     const query = input.value;
+    lastQuery = query;
     if (query.length < MIN_CHARS) {
         hideSearchResults();
+        currentSearchResults = [];
         return;
     }
     const params = new URLSearchParams();
@@ -25,14 +27,16 @@ export async function search() {
     const response = await fetch(`${API_SEARCH_URL}?${params}`);
     const results = await response.json();
 
-
-    renderSearchResults(results, query)
+    console.log("results json:" );
     console.log(results);
+    renderSearchResults(results, query)
+
 }
 
 function renderSearchResults(results, query) {
 
     currentSearchResults = results;
+    results.forEach((result, index) => result._index = index);
     const groupedResults = groupByMediaType(results);
     console.log(groupedResults);
 
@@ -40,7 +44,7 @@ function renderSearchResults(results, query) {
     Object.entries(groupedResults).forEach(([type, entries]) => {
         columnHTML += `
         <div class="search-column"> 
-            <h3 class="search-entry-header">${type}</h3>
+            <h3 class="search-column-header">${type}</h3>
             <ul class="search-column-list">
                 ${entries.map(entry => listEntry(entry)).join('')}
             </ul>
@@ -48,9 +52,8 @@ function renderSearchResults(results, query) {
         `
     });
 
-
     search_results.innerHTML = columnHTML;
-    document.querySelector(".search-column-list").addEventListener('mousedown', fillForm);
+    document.querySelector(".search-results").addEventListener('mousedown', fillForm);
 
     showSearchResults();
 }
@@ -59,12 +62,20 @@ function fillForm(e)
 {
     e.preventDefault();
     console.log("Fill Form");
+    const li = e.target.closest("li");
+    if(!li)
+        return;
+
+    const result = currentSearchResults[li.dataset.index];
+    add_form.elements["title"].value = result.title;
+    add_form.elements["type"].value = result.type;
+    add_form.elements["title"].blur();
     hideSearchResults();
 }
 
 function listEntry(entry) {
     return `
-        <li class="search-entry">
+        <li class="search-entry" data-index="${entry._index}">
             <img class="search-entry-image" src="${entry.imageUrl}" alt="${entry.title}">
             <div class="search-entry-info">
                 <span class="search-entry-title">${entry.title}</span>
@@ -72,6 +83,7 @@ function listEntry(entry) {
             </div>
         </li>
         `;
+
 }
 
 export function hideSearchResults()
@@ -80,15 +92,20 @@ export function hideSearchResults()
     search_results.style.display = "none";
 }
 
-export function showSearchResults()
+function showSearchResults()
 {
-    const query = input.value;
-    if (query.length < MIN_CHARS) {
-        return;
-    }
-
     console.log("Show Search Results");
     search_results.style.display = "flex";
+}
+
+export async function onSearchFocusIn()
+{
+    const query = input.value;
+    if (query.length < MIN_CHARS)
+        return;
+    if(query !== lastQuery)
+        await search();
+    showSearchResults();
 }
 
 function groupByMediaType(results) {

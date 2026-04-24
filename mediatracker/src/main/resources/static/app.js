@@ -13,8 +13,8 @@ document.getElementById('title-input').addEventListener('input', () =>
         debounceTimer = setTimeout(mediaSearchApi.search, DEBOUNCE_MS);
         
     });
-document.getElementById('title-input').addEventListener('focusout', mediaSearchApi.hideSearchResults);
-document.getElementById('title-input').addEventListener('focusin', mediaSearchApi.showSearchResults);
+//document.getElementById('title-input').addEventListener('focusout', mediaSearchApi.hideSearchResults);
+document.getElementById('title-input').addEventListener('focusin', mediaSearchApi.onSearchFocusIn);
 
 document.getElementById('filter-type').addEventListener('change', fetchItems);
 document.getElementById('filter-status').addEventListener('change', fetchItems);
