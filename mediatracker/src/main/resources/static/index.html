@@ -9,7 +9,7 @@
             font-family: sans-serif;
             max-width: 900px;
             margin: 40px auto;
-            padding: 0 20px;
+            padding: 20px;
             background: #f5f5f5;
         }
         h1 {
@@ -19,7 +19,7 @@
             background: white;
             padding: 20px;
             border-radius: 8px;
-            margin-bottom: 24px;
+            margin-bottom: 8px;
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
@@ -117,33 +117,62 @@
         }
 
         .search-results {
-            left:-20px;
-            position: absolute;
-            top: 100%;
-            width: 100%;
 
-            display: none;
-            flex-direction: column;
-            flex-wrap: nowrap;
+            top: calc(100% + 4px);  /* small gap between input and dropdown */
+            //grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            min-width: 480px;  /* prevents columns getting too narrow */
+            padding: 8px;
+
             background: white;
 
-            list-style-type: none;
+            left:-20px;
+            position: absolute;
+
+            display: none;
+
+            /*list-style-type: none;*/
 
             border-radius: 8px;
-
             gap: 4px;
-            padding: 12px;
+
 
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border: 1px solid #ccc;
             z-index: 10;
         }
 
+        .search-column {
+            display: flex;
+            flex-direction: column;
+        }
+        .search-column-header {
+            font-size: 11px;
+            font-weight: 500;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 0.5px solid #eee;
+            margin-bottom: 8px;
+        }
+
+        .search-column-list
+        {
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
         .search-entry {
             display: flex;
             gap: 10px;
-            height: 80px
+            height: 80px;
+            padding: 6px;
+            border-radius: 6px;
+            cursor: pointer;
         }
+
+        .search-entry:hover { background: #f5f5f5; }
 
         .search-entry-image {
             width: 70px;
@@ -163,6 +192,10 @@
             font-size: 14px;
             font-weight: bold;
             color: #333;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .search-entry-meta {
@@ -178,9 +211,9 @@
         <div class="search-container">
             <label for="title-input" class="sr-only">Title</label>
             <input name="title" type="text" id="title-input" placeholder="Title" required/>
-            <ul class="search-results" id="search-results">
+            <div class="search-results" id="search-results">
                 <!-- content injected by JS-->
-            </ul>
+            </div>
         </div>
         <label for="type" class="sr-only">Type</label>
         <select name="type" id="type">
