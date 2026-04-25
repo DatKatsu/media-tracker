@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MediaTracker" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="local" />
+    <module name="mediatracker" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.github.datkatsu.mediatracker.MediatrackerApplication" />
+    <option name="VM_PARAMETERS" value="--enable-native-access=ALL-UNNAMED" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

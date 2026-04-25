@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.MethodNotAllowedException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,5 +26,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleNotFoundErrors(MediaEntryNotFoundException ex)
     {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<String> handleNoHandlerFoundErrors(NoHandlerFoundException ex)
+    {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(MethodNotAllowedException.class)
+    public ResponseEntity<String> handleMethodNotAllowedErrors(MethodNotAllowedException ex)
+    {
+        return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(ex.getMessage());
     }
 }
