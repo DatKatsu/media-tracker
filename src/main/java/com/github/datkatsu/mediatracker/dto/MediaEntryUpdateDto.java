@@ -4,6 +4,6 @@ import com.github.datkatsu.mediatracker.model.*;
 import jakarta.validation.constraints.NotNull;
 
 public record MediaEntryUpdateDto(
-        @NotNull(message = "Status is required") Status status,
+        Status status,
         String notes
 ) { }
