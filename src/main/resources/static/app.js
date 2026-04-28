@@ -3,7 +3,7 @@ import {fetchItems} from './mediaEntriesApi.js';
 import {clearFilter} from './mediaEntriesApi.js';
 import * as mediaSearchApi from "./mediaSearchApi.js";
 
-const DEBOUNCE_MS = 300;
+const DEBOUNCE_MS = 200;
 let debounceTimer = null;
 
 document.getElementById('add-form').addEventListener('submit', addItem);

@@ -7,7 +7,7 @@ public enum MediaType
     MANGA,
     LIGHT_NOVEL,
     WEB_NOVEL,
-    SERIES,
+    SHOW,
     MOVIE,
     OTHER
 }
