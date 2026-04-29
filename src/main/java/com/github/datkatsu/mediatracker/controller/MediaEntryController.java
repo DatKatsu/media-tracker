@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import com.github.datkatsu.mediatracker.dto.MediaEntryUpdateDto;
 import com.github.datkatsu.mediatracker.model.MediaType;
 import com.github.datkatsu.mediatracker.model.Status;
-import com.github.datkatsu.mediatracker.repository.MediaEntryRepository;
 import com.github.datkatsu.mediatracker.service.MediaEntryService;
 
 import java.util.List;
@@ -19,13 +18,11 @@ import java.util.List;
 @RequestMapping("/api/media")
 public class MediaEntryController
 {
-    private final MediaEntryRepository repository;
     private final MediaEntryService service;
     private final MediaEntryMapper mapper;
 
-    public MediaEntryController(MediaEntryRepository repository, MediaEntryService service, MediaEntryMapper mapper)
+    public MediaEntryController(MediaEntryService service, MediaEntryMapper mapper)
     {
-        this.repository = repository;
         this.service = service;
         this.mapper = mapper;
     }

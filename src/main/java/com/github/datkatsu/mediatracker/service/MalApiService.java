@@ -14,17 +14,14 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 public class MalApiService {
 
     private final String apiBaseUrl;
-    private final String siteBaseUrl;
     private final String clientId;
 
     private final RestClient client;
 
     public MalApiService(@Value("${mal.api.base-url}") String apiBaseUrl,
-                         @Value("${mal.site.base-url}") String siteBaseUrl,
                          @Value("${mal.api.client-id}") String clientId)
     {
         this.apiBaseUrl = apiBaseUrl;
-        this.siteBaseUrl = siteBaseUrl;
         this.clientId = clientId;
 
         client = RestClient.create();
