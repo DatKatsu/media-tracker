@@ -3,6 +3,7 @@ package com.github.datkatsu.mediatracker.service;
 import com.github.datkatsu.mediatracker.dto.MalAnimeDto;
 import com.github.datkatsu.mediatracker.dto.MalMangaDto;
 import com.github.datkatsu.mediatracker.dto.MediaSearchResultDto;
+import com.github.datkatsu.mediatracker.mapper.MalMapper;
 import com.github.datkatsu.mediatracker.model.MediaType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,38 +17,26 @@ public class MediaSearchService
     private final MalApiService malApiService;
     private final String malSiteBaseUrl;
     private final String placeholderImageUrl;
+    private final MalMapper mapper;
 
     public MediaSearchService(MalApiService malApiService,
                               @Value("${mal.site.base-url}") String malSiteBaseUrl,
-                              @Value("${placeholderImage.url}") String placeholderImageUrl)
+                              @Value("${placeholderImage.url}") String placeholderImageUrl,
+                                MalMapper mapper)
     {
         this.malApiService = malApiService;
         this.malSiteBaseUrl = malSiteBaseUrl;
         this.placeholderImageUrl = placeholderImageUrl;
+        this.mapper = mapper;
     }
 
+    //ToDo: Change Enums to include mediatypes and implement mapping logic for categories
     public List<MediaSearchResultDto> search(String query)
     {
         List<MediaSearchResultDto> resultDtoList = new ArrayList<>();
-        resultDtoList.addAll(malApiService.fetchAnime(query).stream().map(this::toSearchResult).toList());
-        resultDtoList.addAll(malApiService.fetchManga(query).stream().map(this::toSearchResult).toList());
+        resultDtoList.addAll(malApiService.fetchAnime(query).stream().map(mapper::toSearchResultDto).toList());
+        resultDtoList.addAll(malApiService.fetchManga(query).stream().map(mapper::toSearchResultDto).toList());
         return resultDtoList;
     }
 
-    private MediaSearchResultDto toSearchResult(MalAnimeDto malAnimeDto)
-    {
-        String sourceUrl = malSiteBaseUrl + "/anime/" + malAnimeDto.id();
-        String imageUrl = malAnimeDto.mainPicture() == null ? placeholderImageUrl : malAnimeDto.mainPicture().medium();
-
-        return new MediaSearchResultDto(malAnimeDto.title(), MediaType.ANIME, imageUrl, sourceUrl);
-    }
-
-    //ToDo: replace MediaType with result from MAL Api
-    private MediaSearchResultDto toSearchResult(MalMangaDto malMangaDto)
-    {
-        String sourceUrl = malSiteBaseUrl + "/manga/" + malMangaDto.id();
-        String imageUrl = malMangaDto.mainPicture() == null ? placeholderImageUrl : malMangaDto.mainPicture().medium();
-
-        return new MediaSearchResultDto(malMangaDto.title(), MediaType.MANGA, imageUrl, sourceUrl);
-    }
 }
