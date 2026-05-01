@@ -4,25 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.datkatsu.mediatracker.model.MediaEntry;
+import com.github.datkatsu.mediatracker.model.MediaFormat;
 import org.springframework.data.jpa.domain.Specification;
 
 
-import com.github.datkatsu.mediatracker.model.MediaType;
+import com.github.datkatsu.mediatracker.model.MediaCategory;
 import com.github.datkatsu.mediatracker.model.Status;
 
 import jakarta.persistence.criteria.Predicate;
 //Class to specify filter rules
 public class MediaEntrySpecification
 {
-    public static Specification<MediaEntry> filterBy(MediaType type, Status status)
+    public static Specification<MediaEntry> filterBy(MediaFormat format, Status status)
     {
         return (root, query, cb) -> 
         {
             List<Predicate> predicates = new ArrayList<>();
 
-            if(type != null)
+            if(format != null)
             {
-                predicates.add(cb.equal(root.get("type"), type));
+                predicates.add(cb.equal(root.get("format"), format));
             }
             if(status != null)
             {

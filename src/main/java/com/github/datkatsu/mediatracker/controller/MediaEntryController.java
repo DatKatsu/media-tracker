@@ -3,12 +3,13 @@ package com.github.datkatsu.mediatracker.controller;
 import com.github.datkatsu.mediatracker.dto.MediaEntryRequestDto;
 import com.github.datkatsu.mediatracker.dto.MediaEntryResponseDto;
 import com.github.datkatsu.mediatracker.mapper.MediaEntryMapper;
+import com.github.datkatsu.mediatracker.model.MediaCategory;
+import com.github.datkatsu.mediatracker.model.MediaFormat;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.github.datkatsu.mediatracker.dto.MediaEntryUpdateDto;
-import com.github.datkatsu.mediatracker.model.MediaType;
 import com.github.datkatsu.mediatracker.model.Status;
 import com.github.datkatsu.mediatracker.service.MediaEntryService;
 
@@ -29,10 +30,10 @@ public class MediaEntryController
 
     @GetMapping
     public List<MediaEntryResponseDto> getEntries(
-        @RequestParam(required = false) MediaType type,
+        @RequestParam(required = false) MediaFormat format,
         @RequestParam(required = false) Status status) 
     {
-        return mapper.toResponseDtoList(service.getFilteredEntries(type, status));
+        return mapper.toResponseDtoList(service.getFilteredEntries(format, status));
     }
 
     @PostMapping

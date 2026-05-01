@@ -13,17 +13,23 @@ public abstract class MalMapper {
 
     @Value("${mal.site.base-url}")
     protected String malSiteBaseUrl;
-
     @Value("${placeholderImage.url}") 
     protected String placeholderImageUrl;
 
 
     @Mapping(target = "imageUrl", expression = "java(dto.mainPicture() == null ? placeholderImageUrl : dto.mainPicture().medium())")
     @Mapping(target = "sourceUrl", expression = "java(malSiteBaseUrl + \"/anime/\" + dto.id())")
+    @Mapping(target = "releaseDate", source = "startDate")
+    @Mapping(target = "format", expression = "java(MalMediaFormatMapper.fromMal(dto.mediaType()))")
     public abstract MediaSearchResultDto toSearchResultDto(MalAnimeDto dto);
 
     @Mapping(target = "imageUrl", expression = "java(dto.mainPicture() == null ? placeholderImageUrl : dto.mainPicture().medium())")
     @Mapping(target = "sourceUrl", expression = "java(malSiteBaseUrl + \"/manga/\" + dto.id())")
+    @Mapping(target = "releaseDate", source = "startDate")
+    @Mapping(target = "format", expression = "java(MalMediaFormatMapper.fromMal(dto.mediaType()))")
     public abstract MediaSearchResultDto toSearchResultDto(MalMangaDto dto);
+
+
+
 
 }

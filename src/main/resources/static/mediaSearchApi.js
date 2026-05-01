@@ -113,7 +113,7 @@ function groupByMediaType(results) {
     {
         const type = result.type;
         if (!acc[type])
-            acc[type] = []
+            acc[type] = [];
         acc[type].push(result);
         return acc;
     }, {})

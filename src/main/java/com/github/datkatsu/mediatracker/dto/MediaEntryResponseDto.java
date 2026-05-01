@@ -1,12 +1,13 @@
 package com.github.datkatsu.mediatracker.dto;
 
-import com.github.datkatsu.mediatracker.model.MediaType;
+import com.github.datkatsu.mediatracker.model.MediaCategory;
+import com.github.datkatsu.mediatracker.model.MediaFormat;
 import com.github.datkatsu.mediatracker.model.Status;
 
 public record MediaEntryResponseDto(
         Long id,
         String title,
-        MediaType type,
+        MediaFormat format,
         Status status,
         String notes,
         String imageUrl,

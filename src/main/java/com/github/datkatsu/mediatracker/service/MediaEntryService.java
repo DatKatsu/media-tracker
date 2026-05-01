@@ -8,13 +8,14 @@ import com.github.datkatsu.mediatracker.dto.MediaEntryUpdateDto;
 import com.github.datkatsu.mediatracker.exception.MediaEntryNotFoundException;
 import com.github.datkatsu.mediatracker.mapper.MediaEntryMapper;
 import com.github.datkatsu.mediatracker.model.MediaEntry;
+import com.github.datkatsu.mediatracker.model.MediaFormat;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.github.datkatsu.mediatracker.repository.MediaEntryRepository;
 import com.github.datkatsu.mediatracker.specification.MediaEntrySpecification;
 import com.github.datkatsu.mediatracker.model.Status;
-import com.github.datkatsu.mediatracker.model.MediaType;
+import com.github.datkatsu.mediatracker.model.MediaCategory;
 
 @Service
 public class MediaEntryService
@@ -33,9 +34,9 @@ public class MediaEntryService
         return repository.save(mapper.toEntity(dto));
     }
 
-    public List<MediaEntry> getFilteredEntries(MediaType type, Status status)
+    public List<MediaEntry> getFilteredEntries(MediaFormat format, Status status)
     {
-        Specification<MediaEntry> spec = MediaEntrySpecification.filterBy(type, status);
+        Specification<MediaEntry> spec = MediaEntrySpecification.filterBy(format, status);
         return repository.findAll(spec);
     }
 

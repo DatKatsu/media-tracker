@@ -1,0 +1,8 @@
+package com.github.datkatsu.mediatracker.exception;
+
+public class ExternalApiException extends RuntimeException
+{
+    public ExternalApiException(String message) {
+        super(message);
+    }
+}

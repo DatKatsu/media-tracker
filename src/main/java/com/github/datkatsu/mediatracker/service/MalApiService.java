@@ -1,6 +1,7 @@
 package com.github.datkatsu.mediatracker.service;
 
 import com.github.datkatsu.mediatracker.dto.*;
+import com.github.datkatsu.mediatracker.exception.ExternalApiException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -31,13 +32,15 @@ public class MalApiService {
     {
         MalAnimeSearchResponseWrapper response =
                 client.get()
-                        .uri(apiBaseUrl + "/anime?q=" + query + "&limit=10")
+                        .uri(apiBaseUrl + "/anime?q=" + query + "&limit=10&fields=start_date,media_type,mean,num_episodes")
                         .header("X-MAL-CLIENT-ID", clientId)
                         .accept(APPLICATION_JSON)
                         .retrieve()
                         .body(MalAnimeSearchResponseWrapper.class);
         if(response == null)
             return List.of();
+
+        System.out.print(response);
         return response.data().stream().limit(5)
                 .map(MalAnimeNodeWrapper::node)
                 .filter(Objects::nonNull).toList();
@@ -47,7 +50,7 @@ public class MalApiService {
     {
         MalMangaSearchResponseWrapper response =
                 client.get()
-                        .uri(apiBaseUrl + "/manga?q=" + query + "&limit=10")
+                        .uri(apiBaseUrl + "/manga?q=" + query + "&limit=10&fields=start_date,media_type,mean, num_chapters")
                         .header("X-MAL-CLIENT-ID", clientId)
                         .accept(APPLICATION_JSON)
                         .retrieve()
