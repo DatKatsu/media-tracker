@@ -29,11 +29,11 @@ export async function search() {
 
     console.log("results json:" );
     console.log(results);
-    renderSearchResults(results, query)
+    renderSearchResults(results)
 
 }
 
-function renderSearchResults(results, query) {
+function renderSearchResults(results) {
 
     currentSearchResults = results;
     results.forEach((result, index) => result._index = index);
@@ -68,7 +68,7 @@ function fillForm(e)
 
     const result = currentSearchResults[li.dataset.index];
     add_form.elements["title"].value = result.title;
-    add_form.elements["type"].value = result.type;
+    add_form.elements["format"].value = result.format;
     add_form.elements["title"].blur();
     hideSearchResults();
 }
@@ -111,7 +111,7 @@ export async function onSearchFocusIn()
 function groupByMediaType(results) {
     return results.reduce((acc, result) =>
     {
-        const type = result.type;
+        const type = result.format;
         if (!acc[type])
             acc[type] = [];
         acc[type].push(result);

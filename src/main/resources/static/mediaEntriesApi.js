@@ -1,11 +1,11 @@
 const API_URL = '/api/media';
 
 export async function fetchItems() {
-    const typeFilter = document.getElementById('filter-type').value;
+    const formatFilter = document.getElementById('filter-format').value;
     const statusFilter = document.getElementById('filter-status').value;
 
     const params = new URLSearchParams();
-    if(typeFilter) params.append('type', typeFilter);
+    if(formatFilter) params.append('format', formatFilter);
     if(statusFilter) params.append('status', statusFilter);
 
     const response = await fetch(`${API_URL}?${params}`);
@@ -27,7 +27,7 @@ function renderItems(items) {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${item.title}</td>
-            <td>${formatEnum(item.type)}</td>
+            <td>${formatEnum(item.format)}</td>
             <td>
                 <select class="entry-status" data-id="${item.id}">
                     ${statusOptions(item.status)}
@@ -96,7 +96,7 @@ export async function addItem(event) {
 
     const item = {
         title: form.title.value,
-        type: form.type.value,
+        format: form.format.value,
         status: form.status.value,
         notes: form.notes.value || null
     };
@@ -147,9 +147,9 @@ export async function clearFilter()
 
 function resetSelectionDropDown()
 {
-    const typeFilter = document.getElementById('filter-type');
+    const formatFilter = document.getElementById('filter-format');
     const statusFilter = document.getElementById('filter-status');
-    typeFilter.value = "";
+    formatFilter.value = "";
     statusFilter.value = "";
 }
 

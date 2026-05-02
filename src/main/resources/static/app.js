@@ -16,7 +16,7 @@ document.getElementById('title-input').addEventListener('input', () =>
 document.getElementById('title-input').addEventListener('focusout', mediaSearchApi.hideSearchResults);
 document.getElementById('title-input').addEventListener('focusin', mediaSearchApi.onSearchFocusIn);
 
-document.getElementById('filter-type').addEventListener('change', fetchItems);
+document.getElementById('filter-format').addEventListener('change', fetchItems);
 document.getElementById('filter-status').addEventListener('change', fetchItems);
 
 document.getElementById('filter-clear').addEventListener('click', clearFilter);

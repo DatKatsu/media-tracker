@@ -222,16 +222,41 @@
                 <!-- content injected by JS-->
             </div>
         </div>
-        <label for="type" class="sr-only">Type</label>
-        <select name="type" id="type">
-            <option value="GAME">Game</option>
-            <option value="ANIME">Anime</option>
-            <option value="MANGA">Manga</option>
-            <option value="LIGHT_NOVEL">Light Novel</option>
-            <option value="WEB_NOVEL">Web Novel</option>
-            <option value="SERIES">Series</option>
-            <option value="MOVIE">Movie</option>
-            <option value="OTHER">Other</option>
+        <label for="format" class="sr-only">Type</label>
+        <select name="format" id="format">
+            <optgroup label="Shows">
+                <option value="ANIME_SERIES">Anime</option>
+                <option value="ANIME_OVA">Anime OVA</option>
+                <option value="TV_SHOW">TV Show</option>
+                <option value="DOCUMENTARY">Documentary</option>
+            </optgroup>
+            <optgroup label="Movies">
+                <option value="ANIME_MOVIE">Anime Movie</option>
+                <option value="MOVIE">Movie</option>
+            </optgroup>
+            <optgroup label="Comics">
+                <option value="MANGA">Manga</option>
+                <option value="MANHWA">Manhwa</option>
+                <option value="MANHUA">Manhua</option>
+                <option value="DOUJINSHI">Doujinshi</option>
+                <option value="COMIC">Comic</option>
+            </optgroup>
+            <optgroup label="Books">
+                <option value="NOVEL">Novel</option>
+                <option value="LIGHT_NOVEL">Light Novel</option>
+            </optgroup>
+            <optgroup label="Games">
+                <option value="GAME">Game</option>
+                <option value="VISUAL_NOVEL">Visual Novel</option>
+            </optgroup>
+            <optgroup label="Music">
+                <option value="MUSIC">Music</option>
+                <option value="ANIME_MUSIC">Anime Music</option>
+            </optgroup>
+            <optgroup label="Misc">
+                <option value="OTHER">Other</option>
+                <option value="UNKNOWN">Unknown</option>
+            </optgroup>
         </select>
         <label for="status" class="sr-only">Status</label>
         <select name="status" id="status">
@@ -248,17 +273,42 @@
     </form>
 
     <div class="filters">
-        <label for="filter-type" class="sr-only">Filter Type</label>
-        <select id="filter-type">
-            <option value="">All types</option>
-            <option value="GAME">Game</option>
-            <option value="ANIME">Anime</option>
-            <option value="MANGA">Manga</option>
-            <option value="LIGHT_NOVEL">Light Novel</option>
-            <option value="WEB_NOVEL">Web Novel</option>
-            <option value="SERIES">Series</option>
-            <option value="MOVIE">Movie</option>
-            <option value="OTHER">Other</option>
+        <label for="filter-format" class="sr-only">Filter Type</label>
+        <select id="filter-format">
+                <option value="">All formats</option>
+                <optgroup label="Shows">
+                    <option value="ANIME_SERIES">Anime</option>
+                    <option value="ANIME_OVA">Anime OVA</option>
+                    <option value="TV_SHOW">TV Show</option>
+                    <option value="DOCUMENTARY">Documentary</option>
+                </optgroup>
+                <optgroup label="Movies">
+                    <option value="ANIME_MOVIE">Anime Movie</option>
+                    <option value="MOVIE">Movie</option>
+                </optgroup>
+                <optgroup label="Comics">
+                    <option value="MANGA">Manga</option>
+                    <option value="MANHWA">Manhwa</option>
+                    <option value="MANHUA">Manhua</option>
+                    <option value="DOUJINSHI">Doujinshi</option>
+                    <option value="COMIC">Comic</option>
+                </optgroup>
+                <optgroup label="Books">
+                    <option value="NOVEL">Novel</option>
+                    <option value="LIGHT_NOVEL">Light Novel</option>
+                </optgroup>
+                <optgroup label="Games">
+                    <option value="GAME">Game</option>
+                    <option value="VISUAL_NOVEL">Visual Novel</option>
+                </optgroup>
+                <optgroup label="Music">
+                    <option value="MUSIC">Music</option>
+                    <option value="ANIME_MUSIC">Anime Music</option>
+                </optgroup>
+                <optgroup label="Misc">
+                    <option value="OTHER">Other</option>
+                    <option value="UNKNOWN">Unknown</option>
+                </optgroup>
         </select>
         <label for="filter-status" class="sr-only">Filter Status</label>
         <select id="filter-status">
@@ -275,7 +325,7 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <th>Type</th>
+                <th>Format</th>
                 <th>Status</th>
                 <th>Notes</th>
                 <th></th>
