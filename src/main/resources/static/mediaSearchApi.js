@@ -43,7 +43,7 @@ function renderSearchResults(results) {
     let columnHTML = ``;
     Object.entries(groupedResults).forEach(([type, entries]) => {
         columnHTML += `
-        <div class="search-column"> 
+        <div class="search-column">
             <h3 class="search-column-header">${type}</h3>
             <ul class="search-column-list">
                 ${entries.map(entry => listEntry(entry)).join('')}
@@ -79,7 +79,12 @@ function listEntry(entry) {
             <img class="search-entry-image" src="${entry.imageUrl}" alt="${entry.title}">
             <div class="search-entry-info">
                 <span class="search-entry-title">${entry.title}</span>
-                <span class="searh-entry-meta">Placeholder</span>
+                <div class="searh-entry-meta">
+                    ${entry.releaseDate ? `<span class="badge">${entry.releaseDate.split('-')[0]}</span>` : ''}
+                    ${entry.meanScore ? `<span class="badge">Score: ${entry.meanScore}</span>` : ''}
+                    ${entry.chapters ? `<span class="badge">Ch: ${entry.chapters}</span>` : ''}
+                    ${entry.episodes ? `<span class="badge">Ep: ${entry.episodes}</span>` : ''}                 
+                </div>
             </div>
         </li>
         `;
