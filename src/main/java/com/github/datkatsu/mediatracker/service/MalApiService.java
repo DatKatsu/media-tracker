@@ -40,7 +40,6 @@ public class MalApiService {
         if(response == null)
             return List.of();
 
-        System.out.print(response);
         return response.data().stream().limit(5)
                 .map(MalAnimeNodeWrapper::node)
                 .filter(Objects::nonNull).toList();

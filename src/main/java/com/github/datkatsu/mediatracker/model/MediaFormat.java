@@ -37,8 +37,8 @@ public enum MediaFormat {
     ANIME_MUSIC (MediaCategory.MUSIC, "Anime Music"),
 
     // The rest
-    OTHER (null, "Other"), // specifically for user adding media-types that don't exist or don't fit anywhere else
-    UNKNOWN (null, "Unknown"); // unresolved API mapping or unknown category
+    OTHER (MediaCategory.OTHER, "Other"), // specifically for user adding media-types that don't exist or don't fit anywhere else
+    UNKNOWN (MediaCategory.OTHER, "Unknown"); // unresolved API mapping or unknown category
 
     private final MediaCategory category;
     private final String displayName;

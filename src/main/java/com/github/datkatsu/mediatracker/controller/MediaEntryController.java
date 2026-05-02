@@ -13,7 +13,12 @@ import com.github.datkatsu.mediatracker.dto.MediaEntryUpdateDto;
 import com.github.datkatsu.mediatracker.model.Status;
 import com.github.datkatsu.mediatracker.service.MediaEntryService;
 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/media")
@@ -34,6 +39,21 @@ public class MediaEntryController
         @RequestParam(required = false) Status status) 
     {
         return mapper.toResponseDtoList(service.getFilteredEntries(format, status));
+    }
+
+    @GetMapping("/formats")
+    public Map<String, List<String>> getMediaFormats()
+    {
+        return Arrays.stream(MediaCategory.values())
+                .collect(Collectors.toMap(
+                        MediaCategory::name,
+                        c -> Arrays.stream(MediaFormat.values())
+                                        .filter(format -> format.getCategory() == c)
+                                                .map(MediaFormat::name)
+                                                        .toList(),
+                        (a, b) -> a,
+                        LinkedHashMap::new
+                        ));
     }
 
     @PostMapping

@@ -11,6 +11,7 @@ public enum MediaCategory {
     COMIC,
     BOOK,
     GAME,
-    MUSIC
+    MUSIC,
+    OTHER
 }
 
