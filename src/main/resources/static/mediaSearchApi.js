@@ -5,9 +5,9 @@ const MAX_RESULTS = 10;
 
 const TAB_FILTERS = {
     all: null, //show everything
-    anime: ['ANIME_SERIES', 'ANIME_OVA', 'ANIME_MOVIE'],
+    shows: ['TV_SHOW', 'DOCUMENTARY','ANIME_SERIES', 'ANIME_OVA'],
+    movies: ['MOVIE', 'ANIME_MOVIE'],
     manga: ['MANGA', 'MANHWA', 'MANHUA', 'DOUJINSHI', 'COMIC'],
-    shows: ['TV_SHOW', 'DOCUMENTARY'],
     books: ['NOVEL', 'LIGHT_NOVEL'],
     games: ['GAME', 'VISUAL_NOVEL'],
     music: ['MUSIC', 'ANIME_MUSIC'],
@@ -50,7 +50,7 @@ export async function search() {
         renderSearchResults(results)
     } catch (error)
     {
-        console.error("Search failed", error);
+        console.error("Search failed: ", error);
     }
 }
 

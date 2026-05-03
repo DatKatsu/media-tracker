@@ -8,10 +8,15 @@ export async function fetchItems() {
     if(formatFilter) params.append('format', formatFilter);
     if(statusFilter) params.append('status', statusFilter);
 
-    const response = await fetch(`${API_URL}?${params}`);
-    const items = await response.json();
+    try {
+        const response = await fetch(`${API_URL}?${params}`);
+        const items = await response.json();
 
-    renderItems(items);
+        renderItems(items);
+    } catch (error)
+    {
+        console.error("Fetching items failed: ", error);
+    }
 }
 
 function renderItems(items) {
