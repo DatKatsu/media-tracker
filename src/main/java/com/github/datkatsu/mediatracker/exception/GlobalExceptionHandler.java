@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDto> handleValidationErrors(MethodArgumentNotValidException ex)
@@ -57,6 +59,13 @@ public class GlobalExceptionHandler {
     {
         ErrorResponseDto errorDto = new ErrorResponseDto(Map.of("message", "Invalid value provided"));
         return ResponseEntity.badRequest().body(errorDto);
+    }
+
+    @ExceptionHandler(HttpClientErrorException.TooManyRequests.class)
+    public ResponseEntity<ErrorResponseDto> handleTooManyRequests(HttpClientErrorException.TooManyRequests ex)
+    {
+        ErrorResponseDto errorDto = new ErrorResponseDto(Map.of("message", "Rate limited by MyAimeList API"));
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(errorDto);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
