@@ -58,11 +58,11 @@ function renderSearchResults(results) {
 
     currentSearchResults = results;
     results.forEach((result, index) => result._index = index);
-    renderGroups(results);
+    onTabClick(activeTab);
     showSearchResults();
 }
 
-function renderGroups(results)
+function renderGroups(results, limitPerGroup = null)
 {
     const groupedResults = groupByMediaType(results);
     console.log(groupedResults);
@@ -70,11 +70,12 @@ function renderGroups(results)
     let html = '';
 
     Object.entries(groupedResults).forEach(([type, entries]) => {
+        const entries_limited = limitPerGroup ? entries.slice(0, limitPerGroup) : entries;
         html += `
         <div class="search-column">
             <h3 class="search-column-header">${type}</h3>
             <ul class="search-column-list">
-                ${entries.map(entry => listEntry(entry)).join('')}
+                ${entries_limited.map(entry => listEntry(entry)).join('')}
             </ul>
         </div>
         `
@@ -106,9 +107,9 @@ function listEntry(entry) {
                 <span class="search-entry-title">${entry.title}</span>
                 <div class="searh-entry-meta">
                     ${entry.releaseDate ? `<span class="badge">${entry.releaseDate.split('-')[0]}</span>` : ''}
-                    ${entry.meanScore ? `<span class="badge">Score: ${entry.meanScore}</span>` : ''}
                     ${entry.chapters ? `<span class="badge">Ch: ${entry.chapters}</span>` : ''}
-                    ${entry.episodes ? `<span class="badge">Ep: ${entry.episodes}</span>` : ''}                 
+                    ${entry.episodes && !(entry.format === "MOVIE" || entry.format === "ANIME_MOVIE")  ? `<span class="badge">Ep: ${entry.episodes}</span>` : ''}     
+                    ${entry.meanScore ? `<span class="badge">Score: ${entry.meanScore}</span>` : ''}            
                 </div>
             </div>
         </li>
@@ -156,7 +157,8 @@ export function onTabClick(tab)
     ? currentSearchResults.filter(r => filter.includes(r.format))
         : currentSearchResults;
 
-    renderGroups(filtered);
+    const limit = tab === 'all' ? 3 : null;
+    renderGroups(filtered, limit);
 }
 
 function groupByMediaType(results) {
