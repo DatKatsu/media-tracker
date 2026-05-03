@@ -3,14 +3,28 @@ const API_SEARCH_URL = '/api/search';
 const MIN_CHARS = 3;
 const MAX_RESULTS = 10;
 
+const TAB_FILTERS = {
+    all: null, //show everything
+    anime: ['ANIME_SERIES', 'ANIME_OVA', 'ANIME_MOVIE'],
+    manga: ['MANGA', 'MANHWA', 'MANHUA', 'DOUJINSHI', 'COMIC'],
+    shows: ['TV_SHOW', 'DOCUMENTARY'],
+    books: ['NOVEL', 'LIGHT_NOVEL'],
+    games: ['GAME', 'VISUAL_NOVEL'],
+    music: ['MUSIC', 'ANIME_MUSIC'],
+    other: ['OTHER', 'UNKNOWN']
+}
+
+let activeTab = 'all';
 
 let currentSearchResults = [];
 let lastQuery = "";
 
 const input = document.getElementById('title-input');
+const search_dropdown = document.getElementById('search-dropdown')
 const search_results = document.getElementById('search-results');
 const add_form = document.getElementById('add-form');
 
+// TODO: AbortController
 export async function search() {
 
     const query = input.value;
@@ -24,25 +38,39 @@ export async function search() {
     //const testQuery = 'One';
     params.append('query', query);
 
-    const response = await fetch(`${API_SEARCH_URL}?${params}`);
-    const results = await response.json();
+    try {
+        const response = await fetch(`${API_SEARCH_URL}?${params}`);
+        const results = await response.json();
 
-    console.log("results json:" );
-    console.log(results);
-    renderSearchResults(results)
+        if(query !== lastQuery)
+            return;
 
+        console.log("results json:");
+        console.log(results);
+        renderSearchResults(results)
+    } catch (error)
+    {
+        console.error("Search failed", error);
+    }
 }
 
 function renderSearchResults(results) {
 
     currentSearchResults = results;
     results.forEach((result, index) => result._index = index);
+    renderGroups(results);
+    showSearchResults();
+}
+
+function renderGroups(results)
+{
     const groupedResults = groupByMediaType(results);
     console.log(groupedResults);
 
-    let columnHTML = ``;
+    let html = '';
+
     Object.entries(groupedResults).forEach(([type, entries]) => {
-        columnHTML += `
+        html += `
         <div class="search-column">
             <h3 class="search-column-header">${type}</h3>
             <ul class="search-column-list">
@@ -52,13 +80,10 @@ function renderSearchResults(results) {
         `
     });
 
-    search_results.innerHTML = columnHTML;
-    document.querySelector(".search-results").addEventListener('mousedown', fillForm);
-
-    showSearchResults();
+    search_results.innerHTML = html || '<p class="no-results">No results in this category</p>';
 }
 
-function fillForm(e)
+export function fillForm(e)
 {
     e.preventDefault();
     console.log("Fill Form");
@@ -94,13 +119,13 @@ function listEntry(entry) {
 export function hideSearchResults()
 {
     console.log("Hide Search Results");
-    search_results.style.display = "none";
+    search_dropdown.style.display = "none";
 }
 
 function showSearchResults()
 {
     console.log("Show Search Results");
-    search_results.style.display = "flex";
+    search_dropdown.style.display = "flex";
 }
 
 export async function onSearchFocusIn()
@@ -111,6 +136,27 @@ export async function onSearchFocusIn()
     if(query !== lastQuery)
         await search();
     showSearchResults();
+}
+
+export function onSearchFocusOut(e)
+{
+    console.log('focusout fired');
+    console.log('relatedTarget:', e.relatedTarget);
+    console.log('contains:', e.currentTarget.contains(e.relatedTarget));
+
+    if(!e.currentTarget.contains(e.relatedTarget))
+        hideSearchResults();
+}
+
+export function onTabClick(tab)
+{
+    activeTab = tab;
+    const filter = TAB_FILTERS[tab];
+    const filtered = filter
+    ? currentSearchResults.filter(r => filter.includes(r.format))
+        : currentSearchResults;
+
+    renderGroups(filtered);
 }
 
 function groupByMediaType(results) {

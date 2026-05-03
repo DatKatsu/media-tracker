@@ -9,6 +9,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
+import static org.springframework.test.util.AssertionErrors.assertEquals;
+
 @SpringBootTest
 @ActiveProfiles("local")
 class MalApiServiceTest {
@@ -24,6 +26,9 @@ class MalApiServiceTest {
         System.out.println(results);
         results = malApiService.fetchAnime("fyxfxaxtxdptsfs");
         System.out.println(results);
+
+        //assertEquals()
+
     }
 
     @Test

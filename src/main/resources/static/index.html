@@ -155,7 +155,7 @@
             flex: 1;
         }
 
-        .search-results {
+        .search-dropdown {
 
             top: calc(100% + 4px); /* small gap between input and dropdown */
             min-width: 470px; /* prevents columns getting too narrow */
@@ -264,17 +264,68 @@
             border: 1px solid #e0e0e0;
 
         }
+
+        .dropdown-tabs {
+            display: flex;
+            gap: 4px;
+            padding: 8px 8px 0 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tab {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #888;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 4px 10px;
+            margin-bottom: -1px; /* overlaps the border-bottom of the container */
+            cursor: pointer;
+            transition: color 0.15s;
+        }
+
+        .tab:hover {
+            color: #333;
+        }
+
+        .tab.active {
+            color: #111;
+            border-bottom: 2px solid #111;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 24px;
+            color: #888;
+            font-size: 0.85rem;
+            font-style: italic;
+        }
     </style>
 </head>
 
 <body>
 <h1>Media Tracker</h1>
 <form id="add-form" autocomplete="off">
-    <div class="search-container">
+    <div class="search-container" id="search-container">
         <label for="title-input" class="sr-only">Title</label>
         <input name="title" type="text" id="title-input" placeholder="Title" required/>
-        <div class="search-results" id="search-results">
+
+        <div class="search-dropdown" id="search-dropdown">
+            <div class="dropdown-tabs">
+                <button type ="button" class="tab active" data-tab="all">All</button>
+                <button type ="button" class="tab" data-tab="anime">Anime</button>
+                <button type ="button" class="tab" data-tab="manga">Manga</button>
+                <button type ="button" class="tab" data-tab="shows">TV Shows</button>
+                <button type ="button" class="tab" data-tab="books">Books</button>
+                <button type ="button" class="tab" data-tab="games">Games</button>
+                <button type ="button" class="tab" data-tab="music">Music</button>
+                <button type ="button" class="tab" data-tab="other">Other</button>
+            </div>
+            <div class="search-results" id="search-results">
             <!-- content injected by JS-->
+            </div>
         </div>
     </div>
     <label for="format" class="sr-only">Type</label>
