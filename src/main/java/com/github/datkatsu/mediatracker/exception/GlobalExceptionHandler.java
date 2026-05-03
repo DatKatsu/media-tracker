@@ -12,6 +12,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.HashMap;
@@ -22,7 +23,6 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDto> handleValidationErrors(MethodArgumentNotValidException ex)
     {
@@ -30,6 +30,13 @@ public class GlobalExceptionHandler {
         ex.getBindingResult().getFieldErrors()
                 .forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
         ErrorResponseDto errorDto = new ErrorResponseDto(errors);
+        return ResponseEntity.badRequest().body(errorDto);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponseDto> handleTypeMismatch(MethodArgumentTypeMismatchException ex)
+    {
+        ErrorResponseDto errorDto = new ErrorResponseDto(Map.of("message", "Invalid value provided: " + ex.getValue()));
         return ResponseEntity.badRequest().body(errorDto);
     }
 
@@ -66,13 +73,6 @@ public class GlobalExceptionHandler {
     {
         ErrorResponseDto errorDto = new ErrorResponseDto(Map.of("message", "Rate limited by MyAimeList API"));
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(errorDto);
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponseDto> handleIllegalArgument(IllegalArgumentException ex)
-    {
-        ErrorResponseDto errorDto = new ErrorResponseDto(Map.of("message",  ex.getMessage()));
-        return ResponseEntity.badRequest().body(errorDto);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)

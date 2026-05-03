@@ -34,11 +34,6 @@ public class MediaSearchService
     //ToDo: Change Enums to include mediatypes and implement mapping logic for categories
     public List<MediaSearchResultDto> search(String query)
     {
-        if(query.isBlank())
-            throw new IllegalArgumentException("Search query cannot be empty");
-        if(query.length() < 3)
-            throw new IllegalArgumentException("Search query must be at least 3 characters long");
-
         List<MediaSearchResultDto> results = new ArrayList<>();
         try {
             results.addAll(malApiService.fetchAnime(query).stream().map(mapper::toSearchResultDto).toList());
@@ -47,9 +42,6 @@ public class MediaSearchService
         {
             log.warn("MAL API unavailable: {}", ex.getMessage());
         }
-
-
-
         return results;
     }
 

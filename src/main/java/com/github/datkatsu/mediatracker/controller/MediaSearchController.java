@@ -2,6 +2,8 @@ package com.github.datkatsu.mediatracker.controller;
 
 import com.github.datkatsu.mediatracker.dto.MediaSearchResultDto;
 import com.github.datkatsu.mediatracker.service.MediaSearchService;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +23,7 @@ public class MediaSearchController {
     }
 
     @GetMapping
-    public List<MediaSearchResultDto> getSearchResults(@RequestParam String query)
+    public List<MediaSearchResultDto> getSearchResults(@RequestParam @NotBlank @Size(min = 3, max = 100) String query)
     {
         return searchService.search(query);
     }

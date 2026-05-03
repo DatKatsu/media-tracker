@@ -1,7 +1,7 @@
 package com.github.datkatsu.mediatracker.model;
 
 /**
- * Specific media format used for display badges and tab filtering.
+ * Specific media format used for tab filtering.
  * Each format belongs to a {@link MediaCategory} for broader grouping.
  */
 

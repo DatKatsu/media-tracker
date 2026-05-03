@@ -1,3 +1,5 @@
+
+
 const API_URL = '/api/media';
 
 export async function fetchItems() {
