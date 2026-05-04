@@ -1,50 +1,28 @@
 # Media Tracker
-
 A personal media backlog tracker for keeping track of all types of media like games, anime, manga, light novels, web novels, series, and movies — all in one place.
 
----
-
 ## Motivation
-
-Most tracking tools like MyAnimeList only cover one type of media. I wanted a single place to track everything I'm interested in, currently watching, or have finished without the bloat of social features I don't use.
-
----
+Most popular tracking tools like MyAnimeList only cover one type of media (e.g. animes & mangas, but no video games or books). I wanted a single place to track everything I'm interested in, currently watching, or have finished without the bloat of social features I don't use. (external APIs other than MyAnimeList are still a work in progress)
 
 ## Screenshot
+![Media Tracker screenshot](readme_image_1.png)
+![Search Recommendation screenshot](readme_image_search.png)
  
-![Media Tracker screenshot](mediatracker-screenshot.png)
- 
----
-
----
 ## Features
-
 - Track any type of media: games, anime, manga, light novels, web novels, series, movies
 - Add items with a title, type, status, and optional notes
-- Update status directly from the list
+- Prefill the form through a search recommendation that calls external APIs (MyAnimeList, IGDB*) and sorts mediatypes by format and category
+- Tab-based filtering of the search recommendations
 - Filter by type or status
-- Delete items
+- Edit status/notes and delete entries directly in the table
 - Data persists in a local SQLite database
 
----
+*IGDB not implemented yet
 
 ## Tech Stack
-
-**Backend**
-- Java 21
-- Spring Boot 4
-- Spring Data JPA / Hibernate
-- SQLite
-
-**Frontend**
-- Plain HTML, CSS, JavaScript (no frameworks)
-- Fetch API for communicating with the backend
-
-**Tools**
-- Maven (build and dependency management)
-- GitHub Codespaces (development environment)
-  
----
+- **Backend:** Java 21, Spring Boot 4, Spring Data JPA / Hibernate, SQLite
+- **Frontend:** HTML, CSS, JavaScript (no frameworks)
+- **Tools** Maven, IntelliJ
 
 ## Running Locally
 
@@ -53,18 +31,18 @@ Most tracking tools like MyAnimeList only cover one type of media. I wanted a si
 
 ### Steps
 1. Clone the repository and navigate into it
-2. Run `./mvnw spring-boot:run`
-3. Open `http://localhost:8080` in your browser
+2. Copy `src/main/resources/application-local.properties.template` to `application-local.properties` and fill in your API keys
+3. Run `./mvnw spring-boot:run`
+4. Open `http://localhost:8080` in your browser
 
 The SQLite database file is created automatically on first run.
 
----
+## API Keys
+This project uses the following external APIs:
 
-## What I Learned
+- **MyAnimeList** — [register an app here](https://myanimelist.net/apiconfig) to get a Client ID
+- **IGDB** — [register on Twitch](https://dev.twitch.tv/console) to get a Client ID and Client Secret (not implemented yet)
+- **More APIs** — additional media types and sources planned
 
-This project was built to practice:
-- Designing and building a REST API from scratch with Spring Boot
-- Connecting a Java backend to a SQLite database using JPA and Hibernate
-- Understanding the full request lifecycle from HTTP to database and back
-- Building a functional frontend with plain JavaScript and the Fetch API
-- Working in a cloud development environment with GitHub Codespaces
+Create an `application.properties` file based on `application.properties.example` and fill in your keys.
+
