@@ -6,7 +6,7 @@ A personal media backlog tracker for keeping track of all types of media like ga
 
 ## Motivation
 
-Most tracking tools like MyAnimeList only cover one type of media. I wanted a single place to track everything I'm interested in, currently watching, or have finished without the bloat of social features I don't use.
+Most popular tracking tools like MyAnimeList only cover one type of media (e.g. animes & mangas, but no video games or books). I wanted a single place to track everything I'm interested in, currently watching, or have finished without the bloat of social features I don't use.
 
 ---
 
@@ -21,9 +21,9 @@ Most tracking tools like MyAnimeList only cover one type of media. I wanted a si
 
 - Track any type of media: games, anime, manga, light novels, web novels, series, movies
 - Add items with a title, type, status, and optional notes
-- Update status directly from the list
+- Prefill the form through a search query that calls external APIs like myanimelist.net or igdb.com
 - Filter by type or status
-- Delete items
+- Delete items and update your status or notes directly in the table
 - Data persists in a local SQLite database
 
 ---
@@ -43,7 +43,7 @@ Most tracking tools like MyAnimeList only cover one type of media. I wanted a si
 **Tools**
 - Maven (build and dependency management)
 - GitHub Codespaces (development environment)
-  
+- IntelliJ
 ---
 
 ## Running Locally
@@ -58,13 +58,3 @@ Most tracking tools like MyAnimeList only cover one type of media. I wanted a si
 
 The SQLite database file is created automatically on first run.
 
----
-
-## What I Learned
-
-This project was built to practice:
-- Designing and building a REST API from scratch with Spring Boot
-- Connecting a Java backend to a SQLite database using JPA and Hibernate
-- Understanding the full request lifecycle from HTTP to database and back
-- Building a functional frontend with plain JavaScript and the Fetch API
-- Working in a cloud development environment with GitHub Codespaces
