@@ -20,9 +20,9 @@ Most popular tracking tools like MyAnimeList only cover one type of media (e.g. 
 *IGDB not implemented yet
 
 ## Tech Stack
-**Backend:** Java 21, Spring Boot 4, Spring Data JPA / Hibernate, SQLite
-**Frontend:** HTML, CSS, JavaScript (no frameworks)
-**Tools** Maven, IntelliJ
+- **Backend:** Java 21, Spring Boot 4, Spring Data JPA / Hibernate, SQLite
+- **Frontend:** HTML, CSS, JavaScript (no frameworks)
+- **Tools** Maven, IntelliJ
 
 ## Running Locally
 
