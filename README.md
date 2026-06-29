@@ -24,25 +24,6 @@ Most popular tracking tools like MyAnimeList only cover one type of media (e.g. 
 - **Frontend:** HTML, CSS, JavaScript (no frameworks)
 - **Tools** Maven, IntelliJ
 
-## Running Locally
-
-### Prerequisites
-- Java 21 or higher
-
-### Steps
-1. Clone the repository and navigate into it
-2. Copy `src/main/resources/application-local.properties.template` to `application-local.properties` and fill in your API keys
-3. Run `./mvnw spring-boot:run`
-4. Open `http://localhost:8080` in your browser
-
-The SQLite database file is created automatically on first run.
-
-## API Keys
-This project uses the following external APIs:
-
-- **MyAnimeList** — [register an app here](https://myanimelist.net/apiconfig) to get a Client ID
-- **IGDB** — [register on Twitch](https://dev.twitch.tv/console) to get a Client ID and Client Secret (not implemented yet)
-- **More APIs** — additional media types and sources planned
-
-Create an `application.properties` file based on `application.properties.example` and fill in your keys.
-
+## ToDo
+- Add users and accounts
+- Host the project somewhere
